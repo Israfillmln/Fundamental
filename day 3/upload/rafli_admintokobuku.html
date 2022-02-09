@@ -1,0 +1,25 @@
+<script>
+    const books = [
+        "Scrum", 
+        "LOTR", 
+        "Doraemon",
+        "Naruto",
+    ];
+      do {let menu = "Menu : \n ";
+
+for (let i = 0; i < books.length; i++){
+    menu += `${i + 1}. ${books[i]} \n`;
+}
+
+let newBook = prompt(menu);
+if(newBook == "" || newBook == null || newBook == undefined){
+  break;
+}
+ books.push(newBook);
+} while (true);
+
+        
+    
+    
+
+</script>

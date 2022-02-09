@@ -1,0 +1,139 @@
+<script>
+const barang = [`SCRUM`, `JauharMaknun`, `Majnun`];
+const hargaBarang = [50000, 75000, 250];
+const barangQty = [0, 0, 0]
+
+const tampilan = (isPrompt = false) => {
+    let menu;
+    
+        menu = 
+            prompt(`Login Sebagai :
+    1. Admin
+    2. User
+    3. Exit`)
+
+
+ if (menu == "1"){
+     do{ 
+         iniAdmin = prompt(`Silahkan!:
+         1. Bikin baru
+         2. Liat
+         3. Hapus
+         4. Edit
+         5. Back`);
+         
+         if(iniAdmin == "1"){
+             let barangBaru = prompt(`Moko Tambah Apa?`);
+             let hargaBarangBaru = prompt(`Berapa Hargana?`);
+             barang.push(barangBaru);
+             hargaBarang.push(hargaBarangBaru);
+         } else if(iniAdmin == "2"){
+             alert(`njo eh!`);
+             liatData(false);
+         } else if(iniAdmin == "3"){
+             let barangHapus = liatData(true);
+             barang.splice(barangHapus, 1)
+             hargaBarang.splice(barangHapus, 1);
+         } else if(iniAdmin == "4"){
+             let barangUpdate = liatData(true);
+             let barangUpdated = prompt(
+                 `${barang[barangUpdate]} diubah jadi: `
+             );
+             let hargaBarangUpdate = prompt(`Harga ${barangUpdated} diubah jadi: `
+             );
+             barang.splice(barangUpdate, 1, barangUpdated);
+             hargaBarang.splice(barangUpdate, 1, hargaBarangUpdate)
+         } else if(iniAdmin == "5"){
+             alert("tengkyu Sobat!")
+             break;
+         }
+     }while(true)
+    } else if (menu == "2"){
+        do {
+            iniUser = prompt(`Silahkan!
+            1. Kasi Masuk Keranjang
+            2. Liat isi Keranjangnu!
+            3. Periksami?
+            4. Kembali`);
+
+            if (iniUser == "1"){
+                let totalNa = 0;
+                let UrIndex = liatData(true);
+                let banyak = prompt(`Berapa Mau nu beli ${barang[UrIndex]}?`)
+
+                barangQty[UrIndex] += banyak;
+            } else if (iniUser == "2"){
+                alert(`njo eh!`)
+                liatKeranjang();
+            } else if (iniUser == "3"){
+                let keranjang = "";
+                let totalNa = 0;
+                for (let i = 0; i < barang.length; i++){
+                    keranjang += `${barang[i]} x ${barangQty} = Rp. ${barangQty[i] * hargaBarang[i]}\n`;
+                    totalNa += barangQty[i] * hargaBarang[i];
+                } keranjang += `--------------------------\n`;
+                keranjang += `Totalna itu: Rp. ${totalNa.toLocaleString()}`;
+                let bayar = prompt(keranjang);
+                if (bayar > totalNa){
+                    let kembalina = bayar - totalNa;
+                    alert("Kembaliannu : " + kembalina.toLocaleString());
+                } else if (bayar < totalNa){
+                    let ndaCukup = totalNa - bayar;
+                    alert("Kurangi Uangnu: " + ndaCukup.toLocaleString());
+                } else if ( bayar === totalNa){
+                    alert("TengkyuSobat!")
+                }
+                for (let j = 0; j < barangQty.length; j++){
+                    barangQty[j] = 0;
+                }
+            } else if (iniUser == "4"){
+                alert("tengkyubangetsobatkuladde!");
+                break;
+            }
+        }while(true)
+    } else if (menu == "3"){
+        alert("G`Bye!")
+    }
+
+    const liatData = (isPrompt = false) => {
+        let pilihanBarang = "";
+        for (let i = 0; i < barang.length; i++){
+            pilihanBarang += `${i + 1}. ${barang[i]} Rp. ${hargaBarang[i].toLocaleString()}\n`;
+        }
+        if (isPrompt){
+            let urInput = prompt(" Kasi masuk \n" + pilihanBarang);
+
+            let UrIndex = urInput - 1;
+            return UrIndex;
+        }
+        alert(pilihanBarang)
+    };
+
+    const liatKeranjang = () => {
+        let keranjang = "";
+        let totalNa = 0;
+        for (let i = 0; i < barang.length; i++){
+            keranjang += `${barang[i]} x ${barangQty[i]} => Rp. ${barangQty[i] * hargaBarang[i]}\n`;
+            totalNa += barangQty[i] * hargaBarang[i];
+        }
+        keranjang += "------------------------------\n";
+        keranjang += `Total semuana itu ... Rp. ${totalNa.toLocaleString()}`;
+        alert(keranjang);
+    };
+    tampilan();
+
+};
+
+//`not running yet, sorry`//
+
+</script>
+
+ 
+
+
+
+
+
+
+
+

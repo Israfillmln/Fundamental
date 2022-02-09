@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <meta charset="UTF-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>CRUD Data</title>
+ </head>
+ <body>
+   <style>
+     table,
+     td,
+     th { tab-size :300; width: 0mm;
+       border: 2.5px solid rgb(3, 3, 3);
+       border-collapse: collapse;
+     }
+   </style>
+
+   <table>
+     <!-- Header untuk table -->
+     <thead>
+       <!-- tr = Row table -->
+       <tr>
+         <th>No.</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Occupation</th>
+          <th colspan="2">Action</th>
+        </tr>
+      </thead>
+      <!-- Data atau body table -->
+      <tbody id="tableData">
+        <!-- Untuk isi data lewat javascript/script -->
+      </tbody>
+      <!-- Footer table -->
+      <tfoot>
+        <tr>
+          <td></td>
+          <td>
+            <input id="nameInput" type="text" />
+          </td>
+          <td>
+            <input type="text">
+          </td>
+          <td>
+              <select name="" id="genderInput">
+                  <option>Cowo</option>
+                  <option>Cewe</option>
+              </select>
+          </td>
+          <td>
+            <select name="" id="occupationInput">
+              <option>Software Developer</option>
+              <option>Digital Marketer</option>
+              <option>UI/UX</option>
+              <option>Data Scientist</option>
+            </select>
+            <!-- <input id="occupationInput" type="text" /> -->
+          </td>
+          <td>
+            <button onclick="addData()">Add</button>
+          </td>
+        </tr>
+     </tfoot>
+   </table>
+
+  
+   <script>
+     class Person {
+       constructor(fullName, gender, Age, occupation) {
+         this.fullName = fullName;
+         this.gender = gender;
+         this.occupation = occupation;
+         this.Age = Age;
+       }
+     }
+
+     let data = [
+       new Person("Mark", "Cowo", 18, "Software Developer"),
+       new Person("Steve", "Cowo", 19, "CEO"),
+       new Person("Bella", "Cewe", 19, "UI/UX"),
+       new Person("Seto", "Cowo", 20, "Data Scientist"),
+     ];
+
+      const renderData = () => {
+       let htmlResult = "";
+
+       data.forEach((val, idx) => {
+         htmlResult += `
+ <tr>
+   <td>${idx + 1}</td>
+   <td>${val.fullName}</td>
+   <td>${val.Age}</td>
+   <td>${val.gender}</td>
+   <td>${val.occupation}</td>
+   <td>
+     <button onclick="renderData(${idx})">Edit</button>
+   </td>
+   <td>
+     <button onclick="deleteData(${idx})">Delete</button>
+   </td>
+ </tr>
+ `;
+       });
+
+       document.getElementById("tableData").innerHTML = htmlResult;
+     };
+
+     renderData();
+
+     const addData = () => {
+        const fullNameInput = document.getElementById("nameInput").value;
+        const genderInput = document.getElementById("genderInput").value;
+        const occupationInput =
+         document.getElementById("occupationInput").value;
+
+       // Input validation
+       if (!fullNameInput || !occupationInput) {
+         alert("Kedua field harus diisi");
+         return;
+       } 
+
+       const newPerson = new Person(fullNameInput, genderInput, occupationInput);
+
+       data.push(newPerson);
+
+    //    console.log(data);
+
+       // Tampilkan kembali data terbaru
+       renderData();
+
+       document.getElementById("nameInput").value = "";
+       document.getElementById("genderInput").value = "";
+       document.getElementById("occupationInput").value = "";
+     };
+
+      const deleteData = (deleteIdx) => {
+        // alert(deleteIdx)
+        data.splice(deleteIdx, 1);
+        renderData();
+      };
+    </script>
+  </body>
+</html>

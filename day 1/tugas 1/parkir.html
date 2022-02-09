@@ -1,0 +1,48 @@
+<script>
+
+let userVehicle = prompt(`Pilih kendaraan Anda
+1. Motor
+2. Mobil`)
+
+
+let userTotalParkingFee 
+
+if (userVehicle == "1" || userVehicle == "2"){
+    let durationInHours = parseInt(prompt(`Berampa lamako parkir?(jam)`))  // parseInt gunanya = hasilnya number/mengembalikan integer
+    
+    if (durationInHours > 0){
+    let firstTwoHours 
+    let feePerHour 
+    let maxFee 
+    
+    if (userVehicle == "1"){
+        firstTwoHours = 3000 
+        feePerHour = 1000
+        maxFee = 30000 
+    } else if (userVehicle == "2"){
+        firstTwoHours = 3000 
+        feePerHour = 1000
+        maxFee = 30000 
+    }
+    
+    if (durationInHours <= 2){
+        userTotalParkingFee = firstTwoHours
+    } else if (durationInHours > 2){
+        userTotalParkingFee = firstTwoHours + (feePerHour * (durationInHours - 2))
+    }
+    
+    if (userTotalParkingFee > maxFee){
+        userTotalParkingFee = maxFee
+    }
+    
+    alert(`Totalnya semua adalah Rp. ${userTotalParkingFee.toLocaleString()}`)
+    
+    } else{
+        alert(`masih gorrajieeeeee!`)
+    }
+
+}  else {
+    alert(`salah i woi!`)
+}
+
+</script>

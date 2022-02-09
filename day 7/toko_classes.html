@@ -1,0 +1,215 @@
+<script>
+
+    let totalIncome = 0
+   
+    class mobil {
+        constructor(brand, price){
+        this.brand = brand
+        this.price = price
+        this.qty = 0
+        }
+    
+        toShowList(){
+            return `${this.brand}: Rp. ${this.price.toLocaleString()}`
+        }
+        toCalculateTotal(){
+            return this.qty * this.price
+        }
+        toShowCart(){
+            return `${this.brand}: Rp. ${this.price.toLocaleString()} x ${this.qty} = Rp. ${(this.qty * this.price).toLocaleString()}`
+        }
+    
+    }
+    
+
+    const diMobil = [
+        new mobil("Huracan", 4500000000),
+        new mobil("SupraGTR", 2500000000),
+        new mobil("Chiron", 180000000000)
+    ]
+    
+    const transactionDetail = [];
+    
+
+    // Todo :
+    
+    
+    
+    const showLists = (isPrompt = false, message = "List Produk!") =>{
+        let productLists = message + "\n"
+        for(let i = 0; i < diMobil.length; i++){
+            productLists += `${i+1}. ${diMobil[i].toShowList()}\n`
+        }
+        if(isPrompt){
+            let userInput = prompt(productLists)
+            userInput = parseInt(userInput)
+    
+            userInputIndex = userInput - 1
+    
+            return userInputIndex
+        }
+        alert(productLists)
+    }
+    //Untuk Penambahan data produk
+    const createData = () =>{
+        let addBrand = prompt(`Masukkan Nama Brand: `)
+        let addPrice = prompt(`Masukkan Harga Brand: `)
+        //Agar Price diubah menjadi sebuah number
+        addPrice = parseInt(addPrice)
+        //Untuk menambahkan data baru
+        diMobil.push(new mobil(addBrand, addPrice))
+        alert(`Data Anda Berhasil ditambahkan!`)
+    }
+    //Untuk Mengubah Data
+    const editData = () => {
+        let adminInputEdit = showLists(true, "Pilih Nomor Produk yang Ingin Anda Ubah!")
+        //Input Nama Baru
+        let adminEditBrand = prompt(`Silahkan Input Brand Baru dari ${diMobil[adminInputEdit].brand}!`)
+        //Input Harga Baru
+        let adminEditPrice = prompt(`Masukkan Harga Terbaru!`)
+        adminEditPrice = parseInt(adminEditPrice)
+    
+        diMobil[adminInputEdit].brand = adminEditBrand
+        diMobil[adminInputEdit].price = adminEditPrice
+    }
+    //Untuk Add to Cart
+    const addTocart = () =>{
+        let userInputAddtoCart = showLists(true, "Silahkan Pilih Produk!")
+        let userInputQty = prompt(`Berapa banyak Mobil ${diMobil[userInputAddtoCart].brand} yang Ingin Anda Beli ?`)
+        userInputQty = parseInt(userInputQty)
+    
+        diMobil[userInputAddtoCart].qty += userInputQty
+    }
+    //Untuk Show Cart
+    const showCart = (isCheckout = false, message = "Keranjang Anda!\n") =>{
+        let userCart = message + ""
+        let totalPrice = 0
+        for(let i = 0; i < diMobil.length; i++){
+            userCart += `${i + 1}. ${diMobil[i].toShowCart()},-\n`
+            totalPrice += diMobil[i].toCalculateTotal()
+        }
+        userCart += `\nTotal: Rp. ${totalPrice.toLocaleString()},-`
+        if(isCheckout){
+            let userPayment = prompt(`${userCart}\nMasukkan Uang yang Anda Bayarkan!`)
+            userPayment = parseInt(userPayment)
+            if(userPayment > totalPrice){
+                alert(`Kembalian Anda Rp. ${(userPayment - totalPrice).toLocaleString()},-`)
+                totalIncome += totalPrice
+                for(let i = 0; i < diMobil.length; i++){
+                if(diMobil[i].qty > 0){
+                    transactionDetail.push({...diMobil[i]})
+                }
+                }
+                for(let i = 0; i < diMobil.length; i++){
+                diMobil[i].qty = 0
+                }
+            }
+            else if(userPayment === totalPrice){
+                alert("Terimakasih!")
+                totalIncome += totalPrice
+                for(let i = 0; i < diMobil.length; i++){
+                if(diMobil[i].qty > 0){
+                    transactionDetail.push({...diMobil[i]})
+                }
+                }
+                for(let i = 0; i < diMobil.length; i++){
+                diMobil[i].qty = 0
+                }
+            }
+            else if(userPayment < totalPrice){
+                alert(`Uang Anda Kurang ${(totalPrice - userPayment).toLocaleString()},-`)
+            }
+            
+            return
+        }
+        alert(userCart)
+    }
+    //=======SHOW REPORT=======
+    const showReport = () =>{
+        if(transactionDetail.length){
+            let reportData = ""
+    
+            for(let i = 0; i < transactionDetail.length; i++){
+                reportData += `${i+1}. ${transactionDetail[i].brand} x ${transactionDetail[i].qty} pcs = Rp. ${(transactionDetail[i].qty * transactionDetail[i].price).toLocaleString()},-\n`
+            }
+            alert(`${reportData}\n Total Pendapatan: Rp. ${totalIncome.toLocaleString()},-`)
+        }
+        else {
+            alert("Belum Ada Transaksi!")
+        }
+    }
+    
+    do{
+        let menuInput = prompt(
+    `Main Menu
+    Login Sebagai:
+    1. Admin
+    2. User
+    3. Exit
+ `
+    )
+    //=======ADMIN=======
+    if(menuInput == "1"){// Menu Admin
+        do{
+            let adminMenuInput = prompt(`Selamat datang di menu Admin!
+    Silahkan Pilih Menu:
+    1. Add
+    2. Show
+    3. Delete
+    4. Edit
+    5. Report
+    6. Back`)
+            if(adminMenuInput == "1"){// Menu Create
+                createData()
+            }
+            else if(adminMenuInput == "2"){// Menu Show
+                showLists(false, undefined)
+            }
+            else if(adminMenuInput == "3"){//Menu Delete
+                let adminInputDelete = showLists(true, "Pilih Nomor Produk yang ingin Anda Hapus!")
+                diMobil.splice(adminInputDelete, 1)
+            }
+            else if(adminMenuInput == "4"){//Menu Edit
+                editData()
+                alert(`Data Telah Berubah!`)
+            }
+            else if(adminMenuInput == "5"){//Menu Report
+                showReport()
+            }
+            else if(adminMenuInput == "6"){//Menu Kembali
+                break
+            }
+
+    }while(true)
+    }
+    //=======USER=======
+    else if(menuInput == "2") {// Menu User
+        do{
+            let userMenuInput = prompt(`Selamat datang di menu User!
+    Silahkan Pilih Menu:
+    1. Add to Cart
+    2. Show Cart
+    3. Checkout
+    4. Back`)
+            if(userMenuInput == "1"){// Menu Add to Cart
+                addTocart()
+                alert(`Barang Berhasil ditambahkan ke Keranjang Anda!`)
+            }
+            else if(userMenuInput == "2"){// Menu Show Cart
+                showCart(false)
+            }
+            else if(userMenuInput == "3"){//Menu Checkout
+                showCart(true)
+            }
+            else if(userMenuInput == "4"){//Menu Kembali
+                break
+            }
+    }while(true)
+    }
+    //=======EXIT=======
+    else if(menuInput == "3"){// Exit
+            alert(`Terimakasih!`)
+            break
+    }
+    }while(confirm(`Apakah Anda Ingin Kembali ?`))
+    </script>
