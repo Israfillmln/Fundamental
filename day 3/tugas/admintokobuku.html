@@ -1,0 +1,24 @@
+<script>
+  const books = [
+    "LOTR",
+    "Harry Potter",
+    "Sherlock",
+    "Naruto",
+    "One Piece",
+    "Doraemon",
+ ];
+
+ do {
+   let buku = "Buku yang tersedia: \n";
+   for (let i = 0; i < books.length; i++) {
+     buku += `${i + 1}. ${books[i]}\n`;
+   }
+
+   let addBooks = prompt(buku);
+   books.push(addBooks);
+
+    if (addBooks == null || addBooks == undefined || addBooks == "") {
+      break;
+    }
+  } while (true);
+</script>

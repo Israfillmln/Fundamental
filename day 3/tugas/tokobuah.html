@@ -1,0 +1,36 @@
+<script>
+  const jenisBuah = ["Anggur", "Mangga", "Apel", "Jeruk"];
+  const hargaBuah = [10000, 8000, 12000, 5000];
+  const itemQty = [0, 0, 0, 0];
+  let quantityPembelian;
+​
+  let checkOut = `${jenisBuah.length + 1}`;
+​
+  let menu = "Menu: \n";
+​
+  // ini loop untuk menu
+  for (let i = 0; i < jenisBuah.length; i++) {
+    menu += `${i + 1}. ${jenisBuah[i]} - Rp. ${hargaBuah[
+      i
+    ].toLocaleString()}/Kg \n`;
+  }
+​
+  menu += `${jenisBuah.length + 1}. CheckOut`;
+​
+  let userSelection;
+  userSelection = prompt(menu);
+  userSelection = parseInt(userSelection);
+​
+  let userMenuInputIndex = userSelection - 1;
+​
+  let selectedProductName = jenisBuah[userMenuInputIndex];
+  let selectedproductPrice = hargaBuah[userMenuInputIndex];
+​
+  quantityPembelian = prompt(`Mau beli berapa Kg buah ${selectedProductName}`);
+  quantityPembelian = parseInt(quantityPembelian);
+  let totalPricePerBuah = selectedproductPrice * quantityPembelian;
+​
+  alert(
+    `Anda membeli ${selectedProductName} sebanyak ${quantityPembelian} dengan total Rp. ${totalPricePerBuah.toLocaleString()}`
+  );
+</script>
