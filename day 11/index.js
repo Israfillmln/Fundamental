@@ -31,7 +31,7 @@ const duplicateFilter = () => {
 }
 
 let filteredData = numbers.filter((val) => {
-    return val.lenght < 5
+    return val.lenght > 5
 })
 
 console.log(filteredData)
