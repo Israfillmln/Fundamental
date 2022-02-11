@@ -32,8 +32,8 @@ let result = 0;
 console.log(result)
 
 // output result ditambah x
-// means result = result + x
 result += x
+// means result = result + x
 console.log(result)
 
 // output result ditambah y
@@ -44,13 +44,13 @@ console.log(result)
 
 
 
-const angka = 3
-const lima = "5"
+// const angka = 3
+// const lima = "5"
 
-console.log( angka + lima)
+// console.log( angka + lima)
 
-const angka = 3
-const lima = "5"
+// const angka = 3
+// const lima = "5"
 
-console.log( angka * lima)
+// console.log( angka * lima)
  

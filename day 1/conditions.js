@@ -10,11 +10,13 @@ if (password.length !== 11) {
 
 
 // ! (pembalikan)
-// booleans
+// booleans should always with  comparison, (==, <, >)
 // true dan false -> false
 // false dan false -> false
+// true dan true -> true !!
 // true atau false -> true
 // false atau false -> false
+// true atau true -> true !!
 
 // dan -> &&
 // atau -> ||

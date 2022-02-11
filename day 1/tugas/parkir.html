@@ -5,44 +5,42 @@ let userVehicle = prompt(`Pilih kendaraan Anda
 2. Mobil`)
 
 
-let userTotalParkingFee 
+let userTotalParkingFee;
 
-if (userVehicle == "1" || userVehicle == "2"){
-    let durationInHours = parseInt(prompt(`Berampa lamako parkir?(jam)`))  // parseInt gunanya = hasilnya number/mengembalikan integer
+if (userVehicle == "1"||userVehicle == "2") {
+    let durationInHours = parseInt(prompt("Berapa lamako Parkir?(jam)")) ;
     
-    if (durationInHours > 0){
     let firstTwoHours 
-    let feePerHour 
+    let feePerHOur 
     let maxFee 
     
-    if (userVehicle == "1"){
-        firstTwoHours = 3000 
-        feePerHour = 1000
-        maxFee = 30000 
-    } else if (userVehicle == "2"){
-        firstTwoHours = 3000 
-        feePerHour = 1000
-        maxFee = 30000 
-    }
+    if (durationInHours > 0) {
+        
+        if (userVehicle == "1"){
+             firstTwoHours = 3000
+             feePerHOur = 1000
+             maxFee = 30000
+        } else if (userVehicle == "1"){
+             firstTwoHours = 3000
+             feePerHOur = 1000
+             maxFee = 30000
+        }
+        
     
-    if (durationInHours <= 2){
-        userTotalParkingFee = firstTwoHours
-    } else if (durationInHours > 2){
-        userTotalParkingFee = firstTwoHours + (feePerHour * (durationInHours - 2))
+        if (durationInHours <= 2) {
+            userTotalParkingFee = firstTwoHours
+        } else if (durationInHours > 2) {
+            userTotalParkingFee = firstTwoHours + (feePerHOur * (durationInHours - 2))
+        }
+        
+        if (userTotalParkingFee > maxFee) {
+            userTotalParkingFee = maxFee
+        }
+        alert(`totalna itu Rp. ${userTotalParkingFee.toLocaleString()}`)
+    } else {
+        alert(`nda bolehpi, satuji atau dua!!!`)
     }
-    
-    if (userTotalParkingFee > maxFee){
-        userTotalParkingFee = maxFee
-    }
-    
-    alert(`Totalnya semua adalah Rp. ${userTotalParkingFee.toLocaleString()}`)
-    
-    } else{
-        alert(`masih gorrajieeeeee!`)
-    }
-
-}  else {
-    alert(`salah i woi!`)
 }
+
 
 </script>
