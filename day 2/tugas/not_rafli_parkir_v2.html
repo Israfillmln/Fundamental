@@ -2,7 +2,9 @@
   let repeatFromBeginning;
 
  do {
+
    let userVehicle;
+   
    do {
      userVehicle = prompt(`Pilih kendaraan anda:
          1. Motor
@@ -54,13 +56,10 @@
      } else {
        alert("Parkir anda di bawah 1 jam, masih gratis bro");
      }
-    } else if (userVehicle == "3") {
-      alert("Terima kasih!");
-      break;
-    }
-    repeatFromBeginning = confirm("Apakah mau diulang?");
+   } else if (userVehicle == "3") {
+     alert("Terima kasih!");
+     break;
+   }
+   repeatFromBeginning = confirm("Apakah mau diulang?");
   } while (repeatFromBeginning);
-
-
-  
 </script>
