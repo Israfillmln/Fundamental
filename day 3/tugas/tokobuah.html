@@ -4,8 +4,6 @@
   const itemQty = [0, 0, 0, 0];
   let quantityPembelian;
 
- let checkOut = `${jenisBuah.length + 1}`;
-
  let menu = "Menu: \n";
 
  // ini loop untuk menu
@@ -18,8 +16,8 @@
  menu += `${jenisBuah.length + 1}. CheckOut`;
 
  let userSelection;
- userSelection = prompt(menu);
- userSelection = parseInt(userSelection);
+
+ userSelection = parseInt(prompt(menu));
 
  let userMenuInputIndex = userSelection - 1;
 

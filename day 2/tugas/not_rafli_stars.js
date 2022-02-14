@@ -1,16 +1,19 @@
-const rows = 5;
+function generateStars(rows) {
 
-   for (let i = 0; i < rows; i++) {
-     // rows -> untuk membuat baris
-     let result = "";
-
-   for (let j = 0; j <= i; j++) {
-     // columns -> untuk membuat kolom/bintang
-     result += " *";
-   }
-
-       console.log(result);
+  for (let i = 0; i < rows; i++) {
+    // rows -> untuk membuat baris
+    let result = "";
+  
+  for (let j = 0; j <= i; j++) {
+    // columns -> untuk membuat kolom/bintang
+    result += " *";
+  }
+  
+      console.log(result);
+  }
 }
+
+generateStars(30)
 
 // *
 // * *

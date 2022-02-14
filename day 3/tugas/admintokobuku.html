@@ -14,7 +14,7 @@
      buku += `${i + 1}. ${books[i]}\n`;
    }
 
-   let addBooks = prompt(buku);
+   let addBooks = prompt(`Moko tambah apa?\n${buku}`);
    books.push(addBooks);
 
     if (addBooks == null || addBooks == undefined || addBooks == "") {
