@@ -54,3 +54,7 @@ console.log(result)
 
 // console.log( angka * lima)
  
+
+let angka = "12z"
+console.log(angka = Number(angka))
+console.log(angka = String(angka))
