@@ -1,0 +1,214 @@
+<script>
+  let asset = [
+    {
+      assetName: "Honda Jazz",
+      price: 198000,
+      quantity: 0,
+      bought: 0,
+    },
+    {
+      assetName: "Lamborghini Huracan",
+      price: 732000,
+      quantity: 0,
+      bought: 0,
+    },
+    {
+      assetName: "Rumah Minimalis",
+      price: 12567000,
+      quantity: 0,
+      bought: 0,
+    }
+  ];
+
+ let userTransactions = [];
+
+ const showMenu = (isPrompt = false, message = "") => {
+   let assetList = message + "\n";
+
+   for (let i = 0; i < asset.length; i++) {
+     let product = asset[i];
+
+      assetList += `${i + 1}. ${
+        product.assetName
+      } || $ ${product.price.toLocaleString()} \n`;
+    }
+
+   if (isPrompt) {
+     let userInput = parseInt(prompt(assetList));
+
+     let userInputIndex = userInput - 1;
+
+      return userInputIndex;
+    }
+
+   alert(assetList);
+ };
+
+ const adminAddData = () => {
+   showMenu(false, "ini datana!")
+   let userInputNewProduct = prompt("Moko tambah apa?");
+    let userInputNewPrice = parseInt(prompt("Berapa hargana?"));
+
+   const newProduct = {
+     assetName: userInputNewProduct,
+     price: userInputNewPrice,
+     qty: 0,
+     bought: 0,
+   };
+
+    asset.push(newProduct);
+
+   alert("Yoi taTambahmi!");
+ };
+
+ const adminDeleteData = () => {
+   const userDeleteItemIndex = showMenu(true, "yang mana mau nuhapus?");
+
+    asset.splice(userDeleteItemIndex, 1);
+  };
+
+ const adminEditData = () => {
+   const userEditItemIndex = showMenu(true, "yang mana mau nu ubah?");
+
+   let userEditName = prompt(
+     `Mau nu ubah ${asset[userEditItemIndex].assetName} jadi apa?`
+   );
+   let userEditPrice = parseInt(prompt("Berapa Harganya ?"));
+
+   asset[userEditItemIndex].assetName = userEditName;
+   asset[userEditItemIndex].price = userEditPrice;
+ };
+
+ // User functions
+const userAddToCart = () => {
+   const userCartIndex = showMenu(true, "yang mana mau nubelli?");
+
+   let userCartQty = parseInt(prompt(
+     `beraps ${asset[userCartIndex].assetName} mau nubelli?`
+   ));
+
+   asset[userCartIndex].quantity += userCartQty;
+  };
+
+ const userShowCart = (isCheckout = false) => {
+   let userCart = "";
+   let totalPrice = 0;
+
+   for (let i = 0; i < asset.length; i++) {
+     let product = asset[i];
+
+     userCart += `${i + 1}. ${product.assetName} x ${product.quantity} -> $ ${(
+        product.price * product.quantity
+      ).toLocaleString()} \n`;
+
+     totalPrice += product.quantity * product.price;
+   }
+
+   userCart += `\n total semuana itu $ ${totalPrice.toLocaleString()}`;
+
+   if (isCheckout) {
+      let userPayment = prompt(userCart);
+      userPayment = parseInt(userPayment);
+
+     if (userPayment > totalPrice) {
+       alert(
+         `tabe, kembaliannu $ ${(
+           userPayment - totalPrice
+         ).toLocaleString()}`
+       );
+      } else if (userPayment === totalPrice) {
+        alert("yoi uang pas!");
+      } else if (userPayment < totalPrice) {
+        alert(
+          `kurang $ ${(totalPrice - userPayment).toLocaleString()} ki uangnu!`
+        );
+      }
+
+     for (let i = 0; i < asset.length; i++) {
+       if (asset[i].quantity > 0) {
+          userTransactions.push({ ...asset[i] });
+        }
+      }
+
+     for (let i = 0; i < asset.length; i++) {
+       asset[i].quantity = 0;
+     }
+
+     return;
+   }
+
+   alert(userCart);
+ };
+
+ do {
+   // Main menu
+   const userMainMenuInput = prompt(`Login sebagai:
+   1. Admin
+   2. User
+   3. Exit`);
+
+    if (userMainMenuInput == "1") {
+      do {
+        const adminMenuInput = prompt(`Menu:
+    1. Tambah data
+    2. Delete data
+    3. Show data
+    4. Edit data
+    5. Show report
+    6. Exit`);
+    
+        if (adminMenuInput == "1") {
+          adminAddData();
+        } else if (adminMenuInput == "2") {
+          adminDeleteData();
+        } else if (adminMenuInput == "3") {
+          showMenu(false, "cocokmi to?");
+        } else if (adminMenuInput == "4") {
+          adminEditData();
+        } else if (adminMenuInput == "5") {
+
+         if (userTransactions.length) {
+           let reportData = "";
+           let totalTransactionAmount = 0;
+
+           for (let i = 0; i < userTransactions.length; i++) {
+             let userTransactionItem = userTransactions[i];
+             reportData += `${i + 1}. ${userTransactionItem.assetName} x ${
+               userTransactionItem.quantity
+              } -> Rp.${(
+                userTransactionItem.price * userTransactionItem.quantity
+              ).toLocaleString()}\n`;
+            }
+
+           alert(reportData);
+         } else {
+           alert("nda ada pi!");
+         }
+       } else if (adminMenuInput == "6") {
+         break;
+       }
+     } while (true);
+   } else if (userMainMenuInput == "2") {
+     // Menu user
+      do {
+        const userMenuInput = prompt(`
+        1. Add to cart
+        2. Show cart
+        3. Checkout
+        4. Back`);
+
+       if (userMenuInput == "1") {
+         userAddToCart();
+       } else if (userMenuInput == "2") {
+         userShowCart();
+       } else if (userMenuInput == "3") {
+         userShowCart(true);
+       } else if (userMenuInput == "4") {
+          break;
+        }
+      } while (true);
+    } else if (userMainMenuInput == "3") {
+      break;
+    }
+  } while (true);
+</script>

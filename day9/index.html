@@ -1,56 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculator</title>
-  </head>
-  <body>
-    <h1>Mari berhitung</h1>
-   <h2>Hasil :<span id="totalCalculation"></span></h2>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD</title>
+</head>
+<body>
 
-   <input type="number" id="number1" />
-   <input type="number" id="number2" />
-   <br />
-   <br />
-   <button onclick="addNumber()" id="add">+</button>
-   <button onclick="subtractNumber()" id="subtract">-</button>
-   <button onclick="multiplyNumber()" id="multiply">*</button>
-   <button onclick="divideNumber()" id="divide">/</button>
- </body>
- <script>
-   const addNumber = () => {
-     const firstValue = document.getElementById("number1").value;
-     const secondValue = document.getElementById("number2").value;
+<center>
 
-     const addResult = parseInt(firstValue) + parseInt(secondValue);
+  <style>
 
-     document.getElementById("totalCalculation").innerHTML = addResult;
-   };
-   const subtractNumber = () => {
-     const firstValue = document.getElementById("number1").value;
-     const secondValue = document.getElementById("number2").value;
+    body {
+      background-color: rgb(202, 202, 202);
+      height: 300px;
+    }
+    table{
+      margin-top: 200px;
+      margin-bottom: 50px;
+      background-color: rgb(230, 230, 230);
+    } 
+    table, td, th {
+      border: 1px solid black;
+      border-collapse: collapse ;
+    }
+    </style>
 
-     const subtractResult = parseInt(firstValue) - parseInt(secondValue);
+<table>
+  <thead>
+    <tr>
+      <th><h3>No.</h3></th>
+      <th><h3>Brand</h3></th>
+      <th><h3>Car Name</h3></th>
+      <th><h3>Action</h3></th>
+    </tr>
+  </thead>
+  <tbody id="tableData">
+    
+  </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td><input id="inputBrand" type="text"></td>
+      <td><input id="inputCar" type="text"></td>
+      <td><button onclick="addData()"> | ADD | </button></td>
+    </tr>
+  </tfoot>
+</table>
 
-     document.getElementById("totalCalculation").innerHTML = subtractResult;
-   };
-   const multiplyNumber = () => {
-     const firstValue = document.getElementById("number1").value;
-     const secondValue = document.getElementById("number2").value;
+<script>
+  class Asset {
+    constructor (brandCar, carName) {
+      this.brand = brandCar
+      this.car = carName
+    }
+  }
 
-     const multiplyResult = parseInt(firstValue) * parseInt(secondValue);
+  let data = [
+    new Asset("Lamborghini", "Huracan"),
+    new Asset("Lamborghini", "Aventador"),
+    new Asset("Honda", "Jazz"),
+    new Asset("Honda", "Brio")
+  ]
 
-     document.getElementById("totalCalculation").innerHTML = multiplyResult;
-   };
-   const divideNumber = () => {
-     const firstValue = document.getElementById("number1").value;
-     const secondValue = document.getElementById("number2").value;
+  const renderData = () => {
+    let htmlResult = "";
 
-     const divideResult = parseInt(firstValue) / parseInt(secondValue);
+    data.forEach((Asset, idx) => {
+      htmlResult += `
+      <tr>
+      <td>${idx + 1}</td>
+      <td>${Asset.brand}</td>
+      <td>${Asset.car}</td>
+      <td><button onclick="deleteData(${idx})">delete</button></td>
+    </tr>
+      `
+    })
 
-     document.getElementById("totalCalculation").innerHTML = divideResult;
-   };
- </script>
+    document.getElementById("tableData").innerHTML = htmlResult
+  }
+
+  renderData()
+
+  const addData = () => {
+    const brandInput = document.getElementById("inputBrand").value
+    const carInput = document.getElementById("inputCar").value
+
+    if (brandInput == "" || carInput == "") {
+      alert("tabe, harus diisi!!!")
+      return
+    }
+
+    const newAsset = new Asset(brandInput, carInput);
+
+    data.push(newAsset)
+
+    renderData()
+
+    document.getElementById("inputBrand").value = ""
+    document.getElementById("inputCar").value = ""
+  }
+
+const deleteData = (deleteIndex) => {
+
+  data.splice(deleteIndex, 1)
+  
+  renderData();
+  
+}
+
+</script>
+
+</center>
+
+</body>
 </html>

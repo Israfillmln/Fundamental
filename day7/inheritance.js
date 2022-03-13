@@ -1,27 +1,29 @@
-class Product  {
-    constructor(productName, price){
-    this.productName = productName;
-    this.price = price;
-    this.qty = 0
-    }
-    
-    calculateTotalPrice = () => {
-        return this.price * this.qty;
-    };
-
-    toMenuString = () => {
-        return `${this.productName}|| Rp. ${this.price.toLocaleSting()}`
+class asset {
+    constructor(assetName, price) {
+      this.assetName = assetName;
+      this.price = price;
+      this.qty = 5;
+      this.bought = 0;
     }
 
+    calculateTotal = () => {
+        return this.price * this.qty 
+    }
+
+    toString = () => {
+        return `${this.assetName} || US$ ${this.price.toLocaleString()} x ${this.qty} = US$ ${this.calculateTotal().toLocaleString()}`
+    } 
 }
 
-//====child BOOK====
-// jika sama methodnya, method nya overide(nimpa)
+//====child Car====
+// jika sama methodnya, method nya override(nimpa)
 
-class Book extends Product {
-    constructor(productName, price){
-        super(namaProduk, harga)
-        this.productName = productName;
-        this.price = price;
+class Car extends asset {
+    constructor(assetName, price, kapan, dimana){
+        super(assetName, price)
+        this.kapan = kapan;
+        this.dimana = dimana;
     }
 }
+
+console.log(new Car ("Lamborghini", 175900, "2022", "di karunrung"))

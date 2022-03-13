@@ -1,0 +1,190 @@
+<script>
+  // Untuk menyimpan data produk (buku) kita
+  let products = ["Huracan", "Aventador", "Gallardo"];
+  let productPrices = [149700, 141539, 123900];
+  let productQty = [0, 0, 0, 0]; 
+  let productBought = [0, 0, 0, 0]; 
+  
+  const showMenu = (isPrompt = false) => {
+    let productsList = "";
+    
+    for (let i = 0; i < products.length; i++) {
+      productsList += `${i + 1}. ${products[i]} || $ ${productPrices[
+        i
+      ].toLocaleString()} \n`;
+    }
+    
+    if (isPrompt) {
+      let userInput = prompt(productsList);
+      userInput = parseInt(userInput);
+      
+      let userInputIndex = userInput - 1;
+      return userInputIndex;
+    } 
+    
+      alert(productsList);
+
+  };
+  
+  const adminAddData = () => {
+    let userInputNewProduct = prompt("Moko tambah apa?");
+    let userInputNewPrice = parseInt(prompt("Berapa hargana?"));
+  
+    products.push(userInputNewProduct);
+    productPrices.push(userInputNewPrice);
+    productQty.push(0);
+    productBought.push(0);
+  
+    alert("Yoi Ta tambahmi!");
+
+     };
+
+  const adminDeleteData = () => {
+      const userDeleteItemIndex = showMenu(true);
+  
+    products.splice(userDeleteItemIndex, 1);
+    productPrices.splice(userDeleteItemIndex, 1);
+    productQty.splice(userDeleteItemIndex, 1);
+    productBought.splice(userDeleteItemIndex, 1);
+    };
+
+  const adminEditData = () => {
+    const userEditItemIndex = showMenu(true);
+
+    let userEditValue = prompt(
+      `Mau nu_ubah ${products[userEditItemIndex]} jadi apa bede?`
+    );
+    let userEditPriceValue = parseInt(prompt("berapa Hargana?"));
+
+    products[userEditItemIndex] = userEditValue;
+    productPrices[userEditItemIndex] = userEditPriceValue;
+    };
+
+    // user Function
+
+    const userAddToCart = () => {
+      const userCartIndex = showMenu(true); 
+
+          const userCartQty = parseInt(prompt(
+            `Moko belli ${products[userCartIndex]} berapa ?`
+      ));
+
+          productQty[userCartIndex] += userCartQty;
+          productBought[userCartIndex] += userCartQty;
+          
+    };
+
+    const userShowCart = (isCheckout = false) => {
+      let userCart = "";
+      let totalPrice = 0;
+
+          for ( let i = 0; i < products.length; i++){
+            userCart += `${i + 1}. ${products[i]} sebanyak ${productQty[i]} = $ ${(productPrices[i] * productQty[i]).toLocaleString()}\n`;
+
+            totalPrice += productPrices[i] * productQty[i];
+          }
+
+          if (isCheckout){
+            userCart += `\n Totalna semua itu US$ ${totalPrice.toLocaleString()}`
+
+            let userPayment = parseInt(prompt(userCart));
+
+            if(userPayment > totalPrice) {
+              alert(`kembaliannu US$ ${(userPayment - totalPrice).toLocaleString()}`)
+            } else if(userPayment < totalPrice) {
+              alert(`kurangi US$ ${(totalPrice - userPayment).toLocaleString()} bro!`)
+            }else if(userPayment === totalPrice) {
+              alert(`yoi pake uang pas!`)
+            }
+
+            for ( let i = 0; i < products.length; i++){
+              productQty[i] = 0;
+            }
+
+
+
+            return;
+          }
+
+          alert(userCart)
+    }
+
+    do{
+    const urMenuInput = prompt(`Login as :
+    1. Admin
+    2. User
+    3. Exit`);
+
+    if (urMenuInput == "1"){
+      
+      do{
+          const admMenuInput = prompt(`Menu :
+          1. Create Data
+          2. Delete Data
+          3. Show Data
+          4. Edit Data
+          5. Show Report
+          6. Back`);
+    
+          // Jika user pilih tambah data
+          if (admMenuInput == "1") {
+            adminAddData();
+          } else if (admMenuInput == "2") {
+            adminDeleteData();
+          } else if (admMenuInput == "3") {
+            showMenu(false);
+          } else if (admMenuInput == "4") {
+            adminEditData();
+            
+          } else if (admMenuInput == "5") {
+            let reportData = "";
+            let totalTransactionAmount = 0;
+
+            for (let i = 0; i < products.length; i++){
+              reportData += `${i + 1}. ${products[i]} x ${
+                productBought[i]
+              } -> Rp. ${(
+                productPrices[i] * productBought[
+                  i
+                ]).toLocaleString()} \n`;
+  
+              totalTransactionAmount += productPrices[i] * productBought[i];
+            }
+
+            reportData += `semua transaksinu totalna $ ${totalTransactionAmount.toLocaleString()}`
+
+            alert(reportData)
+
+          } else if (admMenuInput == "6") {
+            break;
+          }
+
+        } while (true);
+      
+    } else if (urMenuInput == "2"){
+      do{
+        const userMenuInput = prompt (`As user, what do u wanna do?
+        1. Add to Cart
+        2. Show Cart
+        3. Checkout
+        4. Back `)
+
+        if (userMenuInput == "1"){ 
+          userAddToCart();
+        } else if (userMenuInput == "2"){
+          userShowCart();
+        } else if (userMenuInput == "3"){
+          userShowCart(true)
+        } else if (userMenuInput == "4"){
+          break;
+        }
+      }while(true)
+      
+    } else if (urMenuInput == "3"){
+
+      alert(`pulang mko`)
+      break;
+    }
+     
+  }while(true);
+  </script>

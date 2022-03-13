@@ -7,28 +7,53 @@
   <title>Document</title>
 </head>
 <body>
-  <h1 id="welcome1">Hello World</h1>
-  <h1 id="welcome2">Halo Dunia</h1>
-  <h1 id="welcome3">Welcome to Purwadhika</h1>
- 
-  <input id="welcomeInput" type="text">
-  <button onclick="alertValue()">Ganti Inner HTML</button>
+
+  <style>
+    
+    body {
+      background-color: rgb(185, 185, 185);
+    }
+
+  </style>
+
+  <center>
+    <h1 id="welcome1">Welcome To Apil Corporation</h1>
+    <h4 id="welcome2">since 2023</h4>
+    <h3 id="welcome3">Apil Tower in Jakarta</h3>
+    <hr>
+    <input id="input" type="text">
+    <hr>
+    <button onclick="change1()">ganti1</button>
+    <button onclick="change2()">ganti2</button>
+    <button onclick="change3()">ganti3</button>
+  </center>
+
   <script>
-    const modifyInnerHtml = () => {
-      // const arr = document.getElementsByTagName("h1")[0]
- 
+    const modifyInnerHTML = () => {
+      // const arr = document.getElementsByTagName("h1")[1]
+      // arr.innerHTML = "oioioioi"
+      
       // console.log(arr.innerHTML)
-      // arr.innerHTML = "Halo kawan-kawan"
- 
-      document.getElementById("welcome1").innerHTML = "Halo kawan-kawan"
+      document.getElementById("welcome1").innerHTML = "Apil corporation"
     }
- 
-    const alertValue = () => {
-      // Isi dari input text
-      const inputValue = document.getElementById("welcomeInput").value
- 
-      document.getElementById("welcome1").innerHTML += inputValue
+
+    const change1 = () => {
+      const inputValue = document.getElementById("input").value
+
+      document.getElementById("welcome1").innerHTML = inputValue
     }
+    const change2 = () => {
+      const inputValue = document.getElementById("input").value
+
+      document.getElementById("welcome2").innerHTML = inputValue
+    }
+    const change3 = () => {
+      const inputValue = document.getElementById("input").value
+
+      document.getElementById("welcome3").innerHTML = inputValue
+    }
+
+    // modifyInnerHTML()
   </script>
 </body>
 </html>

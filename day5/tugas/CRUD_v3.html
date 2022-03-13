@@ -1,7 +1,7 @@
 <script>
   // Untuk menyimpan data produk (buku) kita
-  let products = ["Honda Jazz", "CBR250RR"];
-  let productPrices = [87400, 23325];
+  let products = ["Honda Jazz", "CBR250RR", "Lamborghini Huracan"];
+  let productPrices = [87400, 23325, 169700];
 
  do {
    const userMenuInput = prompt(`Menu:
@@ -11,33 +11,35 @@
    4. Edit data
    5. Exit`);
 
-   // Jika user pilih tambah data
    if (userMenuInput == "1") {
+     // Jika user pilih tambah data
      let userInputNewProduct = prompt("moko tambah apa?");
      let userInputNewProductPrices = parseInt(prompt("berapa hargana?"));
 
      products.push(userInputNewProduct);
      productPrices.push(userInputNewProductPrices);
-     alert("Data tertambahkan!");
+     alert("ta tambahmi!");
+
     } else if (userMenuInput == "2") {
-     // Jika user pilih delete data
+      // Jika user pilih delete data
 
      let productsList = "";
 
      for (let i = 0; i < products.length; i++) {
-       productsList += `${i + 1}. ${products[i]} $ ${productPrices[i].toLocaleString()}\n`;
+       productsList += `${i + 1}. ${products[i]} US $ ${productPrices[i].toLocaleString()}\n`;
     }
     let userDeleteItemInput = parseInt(prompt(productsList));
     let userDeleteItemIndex = userDeleteItemInput - 1;
 
     products.splice(userDeleteItemIndex, 1);
     productPrices.splice(userDeleteItemIndex, 1);
+    
   } else if (userMenuInput == "3") {
     // Jika user pilih show data
     let productsList = "";
 
-    for (let i = 0; i < products.length; i++) {
-       productsList += `${i + 1}. ${products[i]} $ ${productPrices[i].toLocaleString()}\n`;
+     for (let i = 0; i < products.length; i++) {
+       productsList += `${i + 1}. ${products[i]} US $ ${productPrices[i].toLocaleString()}\n`;
     }
     
     alert(productsList);
@@ -46,7 +48,7 @@
      let productsList = "";
 
      for (let i = 0; i < products.length; i++) {
-       productsList += `${i + 1}. ${products[i]} $ ${productPrices[i].toLocaleString()}\n`;
+       productsList += `${i + 1}. ${products[i]} US $ ${productPrices[i].toLocaleString()}\n`;
     }
      // User input nomor urut item (index + 1)
      let userEditItemInput = prompt(productsList);
@@ -55,15 +57,20 @@
      // Convert nomor urut menjadi index
      let userEditItemIndex = userEditItemInput - 1;
 
+    //  edit products
      let userEditProducts = prompt(
-       `Mau ubah ${products[userEditItemIndex]} jadi apa?`
+       `Mau nu ubah ${products[userEditItemIndex]} jadi apa?`
      );
+
+    //  edit product prices
      let userEditProductsPrices = parseInt(prompt(
        `harga berapa?`
      ));
 
      products[userEditItemIndex] = userEditProducts;
      productPrices[userEditItemIndex] = userEditProductsPrices;
+
+    //  kalau pilih exit
    } else if (userMenuInput == "5") {
      break
    } 

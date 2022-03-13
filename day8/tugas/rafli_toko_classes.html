@@ -1,0 +1,272 @@
+<script>
+  // TODO: fix it
+class Asset {
+  constructor(assetName, assetPrice) {
+    this.name = assetName
+    this.price = assetPrice
+    this.quantity = 0
+  }
+
+  toCalculateTotalProce () {
+    return this.price * this.quantity
+  }
+
+  toMenuString () {
+    return `${this.name} || US$ ${this.price.toLocaleString()}`
+  }
+
+  toCartString () {
+    return `${this.name} sebanyak ${this.quantity}, total US$ ${this.toCalculateTotalProce().toLocaleString()}`
+  }
+
+}
+
+class Car extends Asset {
+  constructor (assetName, assetPrice, assetBrand, yearReleased) {
+    super (assetName, assetPrice)
+    this.year = yearReleased
+    this.brand = assetBrand
+  }
+
+  toMenuString () {
+    return `${this.brand} ${this.name} (${this.year}) || US$ ${this.price.toLocaleString()}`
+  }
+
+}
+
+class TransactionDetail{
+  constructor(){
+    this.transaction = []
+  }
+
+  addItem (transactionItem) {
+
+    const date = new Date();
+
+    const today = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+
+    transactionItem.transactionDate = today
+    this.transaction.push(transactionItem);
+  }
+
+  displayTransactionList () {
+    let transactionList = ""
+
+    for (let i = 0; i < this.transaction.length; i++) {
+      transactionList += `${i + 1}. ${this.transaction[i].toCartString()} || Date : ${this.transaction[i].transactionDate}\n`
+    }
+
+    return transactionList
+  }
+
+}
+
+  let assets = [
+    new Car ("Huracan", 178900, "Lamborghini", "2020"),
+    new Car ("SupraGTR", 137300, "Honda", "2019"),
+    new Car ("Chiron", 594090, "Bugatti", "2021")
+  ];
+
+ let userTransactions = [];
+
+ let transactionDetail = new TransactionDetail()
+
+ const showMenu = (isPrompt = false, message = "") => {
+   let assetList = message + "\n";
+
+   for (let i = 0; i < assets.length; i++) {
+
+      assetList += `${i + 1}. ${assets[i].toMenuString()}\n`;
+    }
+
+   if (isPrompt) {
+     let userInput = parseInt(prompt(assetList));
+
+     let userInputIndex = userInput - 1;
+
+      return userInputIndex;
+    }
+
+   alert(assetList);
+ };
+
+ const adminAddData = () => {
+
+   showMenu(false, "ini datana! Next untuk tambah!")
+   
+   let userInputNewBrand = prompt("Apa Merekna?");
+   let userInputNewCar = prompt("Mobil apa?");
+   let userInputNewYear = prompt("Tahun Berapa itu?");
+   let userInputNewPrice = parseInt(prompt("Berapa hargana?"));
+
+   assets.push(
+     new Car (
+       userInputNewCar,
+       userInputNewPrice,
+       userInputNewBrand,
+       userInputNewYear,
+       )
+   )
+
+   alert("Yoi taTambahmi!");
+ };
+
+ const adminDeleteData = () => {
+   const userDeleteItemIndex = showMenu(true, "yang mana mau nuhapus?");
+
+    assets.splice(userDeleteItemIndex, 1);
+  };
+
+ const adminEditData = () => {
+   const userEditItemIndex = showMenu(true, "yang mana mau nu edit?");
+
+   let userEditBrand = prompt("Mau nu ubah jadi merk apa?");
+   let userEditName = prompt(`namana iyya?`);
+   let userEditYear = prompt("tahunna iyya?");
+   let userEditPrice = parseInt(prompt("Beraps Hargana?"));
+
+   assets[userEditItemIndex] = {
+     ...assets[userEditItemIndex],
+     assetName = userEditName,
+     assetPrice = userEditPrice,
+     assetBrand = userEditBrand,
+     yearReleased = userEditYear,
+   }
+ };
+
+ // User functions
+const userAddToCart = () => {
+   const userCartIndex = showMenu(true, "yang mana mau nubelli?");
+
+   let userCartQty = parseInt(prompt(
+     `beraps ${assets[userCartIndex].name} mau nubelli?`
+   ));
+
+   assets[userCartIndex].quantity += userCartQty;
+  };
+
+ const userShowCart = (isCheckout = false) => {
+   let userCart = "";
+   let totalPrice = 0;
+
+   for (let i = 0; i < assets.length; i++) {
+     let product = assets[i];
+
+     userCart += `${i + 1}. ${product.toCartString()} \n`;
+     totalPrice += product.toCalculateTotalProce();
+   }
+
+   userCart += `\n total semuana itu $ ${totalPrice.toLocaleString()}`;
+  
+   
+   if (isCheckout) {
+       do{
+        let userPayment = parseInt(prompt(userCart));
+  
+       if (userPayment > totalPrice) {
+         alert(
+           `tabe, kembaliannu US$ ${(
+             userPayment - totalPrice
+           ).toLocaleString()}`
+         );
+         break
+        } else if (userPayment === totalPrice) {
+          alert("yoi uang pas!");
+          break
+        } else if (userPayment < totalPrice) {
+          alert(
+            `kurang US$ ${(totalPrice - userPayment).toLocaleString()} ki uangnu!`
+          );
+        }
+      } while (true)
+  
+       for (let i = 0; i < assets.length; i++) {
+         if (assets[i].quantity > 0) {
+            transactionDetail.addItem({...assets[i]})
+          }
+        }
+  
+      //  for (let i = 0; i < assets.length; i++) {
+      //    assets[i].quantity = 0;
+      //  }
+  
+       return;
+     }
+
+  
+
+   alert(userCart);
+ };
+
+ do {
+   // Main menu
+   const userMainMenuInput = prompt(`Login sebagai:
+   1. Admin
+   2. User
+   3. Exit`);
+
+    if (userMainMenuInput == "1") {
+      do {
+        const adminMenuInput = prompt(`Menu:
+    1. Tambah data
+    2. Delete data
+    3. Show data
+    4. Edit data
+    5. Show report
+    6. Exit`);
+    
+        if (adminMenuInput == "1") {
+          adminAddData();
+        } else if (adminMenuInput == "2") {
+          adminDeleteData();
+        } else if (adminMenuInput == "3") {
+          showMenu(false, "cocokmi to?");
+        } else if (adminMenuInput == "4") {
+          adminEditData();
+        } else if (adminMenuInput == "5") {
+
+         if (transactionDetail.transaction.length) {
+          //  let reportData = "yang laku sebanyak = \n";
+          //  let totalTransactionAmount = 0;
+
+          //  for (let i = 0; i < userTransactions.length; i++) {
+          //    let userTransactionItem = userTransactions[i];
+          //    reportData += `${i + 1}. ${userTransactionItem.name} x ${
+          //      userTransactionItem.quantity
+          //     } = US$ ${(
+          //       userTransactionItem.price * userTransactionItem.quantity
+          //     ).toLocaleString()}\n`;
+          //   }
+
+           alert(transactionDetail.displayTransactionList());
+         } else {
+           alert("nda ada pi!");
+         }
+       } else if (adminMenuInput == "6") {
+         break;
+       }
+     } while (true);
+   } else if (userMainMenuInput == "2") {
+     // Menu user
+      do {
+        const userMenuInput = prompt(`
+        1. Add to cart
+        2. Show cart
+        3. Checkout
+        4. Back`);
+
+       if (userMenuInput == "1") {
+         userAddToCart();
+       } else if (userMenuInput == "2") {
+         userShowCart();
+       } else if (userMenuInput == "3") {
+         userShowCart(true);
+       } else if (userMenuInput == "4") {
+          break;
+        }
+      } while (true);
+    } else if (userMainMenuInput == "3") {
+      break;
+    }
+  } while (true);
+</script>
