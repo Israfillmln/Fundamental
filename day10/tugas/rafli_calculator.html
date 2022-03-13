@@ -8,20 +8,29 @@
     <title>Calculator</title>
   </head>
   <body>
+
+    <style>
+      body {
+        background-color: rgb(224, 224, 224);
+      }
+    </style>
+<center>
     <h1>Matematika itu Menyenangkan!</h1>
     
-    
-    Angka Pertama : <input type="number" id="angkaPertama">
-    Angka Kedua : <input type="number" id="angkaKedua">
+    <input type="number" id="angkaPertama">
     <br>
     <br>
-    Operator : 
     <button id="tambah" onclick="tambah()">+</button>
     <button id="kurang" onclick="kurang()">-</button>
     <button id="kali" onclick="kali()">x</button>
     <button id="bagi" onclick="bagi()">/</button>
     <button id="mod" onclick="mod()">Mod</button>
    <button id="^" onclick="pangkat()">^</button>
+    <br>
+    <br>
+    <input type="number" id="angkaKedua">
+    <br>
+    <br>
    <h2>Jawaban Anda: <span id="hasil"></span></h2>
    
    
@@ -68,5 +77,6 @@
         document.getElementById("hasil").innerHTML = math
       }
     </script>
+</center>
   </body>
 </html>
