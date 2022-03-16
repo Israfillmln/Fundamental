@@ -15,66 +15,72 @@
       }
     </style>
 <center>
-    <h1>Matematika itu Menyenangkan!</h1>
+    <h1>Try to calculate if you are confused!</h1>
     
-    <input type="number" id="angkaPertama">
-    <br>
-    <br>
-    <button id="tambah" onclick="tambah()">+</button>
-    <button id="kurang" onclick="kurang()">-</button>
-    <button id="kali" onclick="kali()">x</button>
-    <button id="bagi" onclick="bagi()">/</button>
-    <button id="mod" onclick="mod()">Mod</button>
-   <button id="^" onclick="pangkat()">^</button>
-    <br>
-    <br>
-    <input type="number" id="angkaKedua">
-    <br>
-    <br>
-   <h2>Jawaban Anda: <span id="hasil"></span></h2>
+    <table>
+      <label for="angkaPertama"></label>
+      <input type="number" id="angkaPertama">
+      <br>
+      <br>
+      <button id="tambah" onclick="tambah()">+</button>
+      <button id="kurang" onclick="kurang()">-</button>
+      <button id="kali" onclick="kali()">x</button>
+      <button id="bagi" onclick="bagi()">/</button>
+      <br>
+      <br>
+      <label for="angkaKedua"></label>
+      <input type="number" id="angkaKedua">
+      <br>
+      <br>
+      <h2>Jawaban Anda: <span id="hasil"></span></h2>
+    </table>
    
    
    <script>
      let firstNumber
      let secondNumber
 
-     function Int(){
+     function toInteger(){
      firstNumber = document.getElementById("angkaPertama").value;
      secondNumber = document.getElementById("angkaKedua").value;
+
      firstNumber = parseInt(firstNumber)
      secondNumber = parseInt(secondNumber)
      }
 
      function tambah() {
-       Int()
-       let math = firstNumber + secondNumber
-       document.getElementById("hasil").innerHTML = math
+       
+      toInteger()
+       
+       const tambah = firstNumber + secondNumber
+
+       document.getElementById("hasil").innerHTML = tambah
+
      }
      function kurang(){
-       Int()
-       let math = firstNumber - secondNumber
-       document.getElementById("hasil").innerHTML = math
+       toInteger()
+
+       let kurang = firstNumber - secondNumber
+
+       document.getElementById("hasil").innerHTML = kurang
+
 
      }
       function bagi(){
-        Int()
-        let math = firstNumber / secondNumber
-        document.getElementById("hasil").innerHTML = math
+        toInteger()
+
+        let bagi = firstNumber / secondNumber
+
+        document.getElementById("hasil").innerHTML = bagi
+
       }
       function kali(){
-        Int()
-        let math = firstNumber * secondNumber
-        document.getElementById("hasil").innerHTML = math
-      }
-      function mod(){
-        Int()
-        let math = firstNumber % secondNumber
-        document.getElementById("hasil").innerHTML = math
-      }
-      function pangkat(){
-        Int()
-        let math = firstNumber ** secondNumber
-        document.getElementById("hasil").innerHTML = math
+        toInteger()
+
+        let kali = firstNumber * secondNumber
+
+        document.getElementById("hasil").innerHTML = kali
+
       }
     </script>
 </center>

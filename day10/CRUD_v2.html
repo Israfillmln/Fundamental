@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD V2</title>
+</head>
+<body>
+
+<center>
+
+  <style>
+
+    body{
+      background-color: rgb(202, 202, 202);
+      height: 300px;
+    }
+    table{
+      margin-top: 200px;
+      margin-bottom: 50px;
+      background-color: rgb(230, 230, 230);
+    } 
+    table, td, th {
+      border: 1px solid black;
+      border-collapse: collapse ;
+    }
+    input, select{
+      background-color: rgb(230, 230, 230);
+    }
+    </style>
+
+<table>
+  <thead>
+    <tr>
+      <th><h3>No.</h3></th>
+      <th><h3>Brand</h3></th>
+      <th><h3>Car Name</h3></th>
+      <th><h3>Year</h3></th>
+      <th><h3>Condition</h3></th>
+      <th><h3>Price</h3></th>
+      <th colspan="2"><h3>Action</h3></th>
+    </tr>
+  </thead>
+  <tbody id="tableData">
+    
+  </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td><input id="inputBrand" type="text"></td>
+      <td><input id="inputCar" type="text"></td>
+      <td>
+        <select id="inputYear">
+          <option>2022</option>
+          <option>2021</option>
+          <option>2020</option>
+          <option>2019</option>
+          <option>2018</option>
+          <option>2017</option>
+        </select>
+      </td>
+      <td>
+        <label for="inputCondition1">
+          <input value="Old" type="radio" id="inputCondition1" name="condition"/>Old
+        </label>
+        <label for="inputCondition2">
+          <input checked value="Mid" type="radio" id="inputCondition2" name="condition"/>Mid
+        </label>
+        <label for="inputCondition3">
+          <input value="New" type="radio" id="inputCondition3" name="condition"/>New
+        </label>
+      </td>
+      <td>US$<input type="text" id="inputPrice">M</td>
+      <td colspan="2"><center><button onclick="addData()">ADD</button></center></td>
+    </tr>
+  </tfoot>
+</table>
+
+<script>
+  class Asset {
+    constructor (brandCar, carName, carYear, carCondition, carPrice) {
+      this.brand = brandCar
+      this.car = carName
+      this.year = carYear
+      this.condition = carCondition
+      this.price = carPrice
+    }
+  }
+
+  let data = [
+    new Asset("Lamborghini", "Huracan", "2021", "New", 15),
+    new Asset("Lamborghini", "Aventador", "2019", "Mid", 12),
+    new Asset("Honda", "Jazz", "2020", "New", 5),
+    new Asset("Honda", "Brio", "2018", "Old", 3),
+  ]
+
+  const renderData = (editIdx) => {
+    let htmlResult = "";
+
+    data.forEach((Asset, idx) => {
+
+      if(idx == editIdx) {
+        htmlResult += `
+        <tr>
+      <td>${idx + 1}</td>
+        <td><input id="editBrand" value="${Asset.brand}"></td>
+        <td><input id="editCar" value="${Asset.car}"></td>
+        <td>          
+            <select id="editYear">
+              <option ${Asset.year == "2022" ? "selected" : ""} >2022</option>
+              <option ${Asset.year == "2021" ? "selected" : ""} >2021</option>
+              <option ${Asset.year == "2020" ? "selected" : ""} >2020</option>
+              <option ${Asset.year == "2019" ? "selected" : ""} >2019</option>
+              <option ${Asset.year == "2018" ? "selected" : ""} >2018</option>
+              <option ${Asset.year == "2017" ? "selected" : ""} >2017</option>
+            </select>
+          </td>
+        <td>
+            <label for="editCondition1">
+              <input ${Asset.condition == "Old" ? "checked" : ""} value="Old" type="radio" id="editCondition1" name="editCondition"/>Old
+            </label>
+            <label for="editCondition2">
+              <input ${Asset.condition == "Mid" ? "checked" : ""} value="Mid" type="radio" id="editCondition2" name="editCondition"/>Mid
+            </label>
+            <label for="editCondition3">
+              <input ${Asset.condition == "New" ? "checked" : ""} value="New" type="radio" id="editCondition3" name="editCondition"/>New
+            </label>  
+        </td>
+        <td>US$ <input id="editPrice" value="${Asset.price}"> M</td>
+        <td><button onclick="renderData()">cancel</button></td>
+        <td><center><button onclick="editData(${idx})">save</button></center></td>
+    </tr>
+        `
+      } else {
+          htmlResult += `
+          <tr>
+              <td>${idx + 1}</td>
+              <td>${Asset.brand}</td>
+              <td>${Asset.car}</td>
+              <td>${Asset.year}</td>
+              <td>${Asset.condition}</td>
+              <td>US$ ${Asset.price} M</td>
+              <td><center><button onclick="renderData(${idx})">edit</button></center></td>
+              <td><button onclick="deleteData(${idx})">delete</button></td>
+          </tr>
+            `
+        }
+        })
+        
+        document.getElementById("tableData").innerHTML = htmlResult
+      }
+
+  renderData()
+
+  const addData = () => {
+    const brandInput = document.getElementById("inputBrand").value
+    const nameInput = document.getElementById("inputCar").value
+    const yearInput = document.getElementById("inputYear").value
+    let priceInput = document.getElementById("inputPrice").value
+    priceInput = parseInt(priceInput).toLocaleString()
+
+    const conditionChecked1 = document.getElementById("inputCondition1").checked
+    const conditionChecked2 = document.getElementById("inputCondition2").checked
+    const conditionChecked3 = document.getElementById("inputCondition3").checked
+
+    let condition;
+
+    if (conditionChecked1) {
+      condition = document.getElementById("inputCondition1").value
+    } else if (conditionChecked2) {
+      condition = document.getElementById("inputCondition2").value
+    } else if (conditionChecked3) {
+      condition = document.getElementById("inputCondition3").value
+    }
+
+    if (!brandInput || !nameInput || !yearInput) {
+      alert("tabe, harus diisi!!!")
+      return
+    }
+
+    const newAsset = new Asset (brandInput, 
+    nameInput, 
+    yearInput, 
+    condition, 
+    priceInput);
+
+    data.push(newAsset)
+
+    renderData()
+
+    document.getElementById("inputBrand").value = ""
+    document.getElementById("inputCar").value = ""
+    document.getElementById("inputPrice").value = ""
+  }
+
+const deleteData = (deleteIndex) => {
+
+  let shouldDelete = confirm("tojeng jko hapuski?")
+
+  if (shouldDelete) {
+
+    data.splice(deleteIndex, 1)
+
+  }
+  
+  renderData();
+  
+}
+
+const editData = (editIdx) => {
+
+  const brandEdit = document.getElementById("editBrand").value
+    const nameEdit = document.getElementById("editCar").value
+    const yearEdit = document.getElementById("editYear").value
+    let priceEdit = document.getElementById("editPrice").value
+    priceEdit = parseInt(priceEdit).toLocaleString()
+
+    const conditionEditChecked1 = document.getElementById("editCondition1").checked
+    const conditionEditChecked2 = document.getElementById("editCondition2").checked
+    const conditionEditChecked3 = document.getElementById("editCondition3").checked
+
+    let conditionEdit;
+
+    if (conditionEditChecked1) {
+      conditionEdit = document.getElementById("editCondition1").value
+    } else if (conditionEditChecked2) {
+      conditionEdit = document.getElementById("editCondition2").value
+    } else if (conditionEditChecked3) {
+      conditionEdit = document.getElementById("editCondition3").value
+    }
+
+    if (!brandEdit || !nameEdit || !yearEdit || !conditionEdit) {
+      alert("tabe, harus diisi!!!")
+      return
+    }
+
+    data[editIdx].brand = brandEdit
+    data[editIdx].car = nameEdit
+    data[editIdx].year = yearEdit
+    data[editIdx].price = priceEdit
+    data[editIdx].condition = conditionEdit
+
+    renderData()
+
+}
+
+</script>
+
+</center>
+
+</body>
+</html>
