@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <center />
+  <div id="renderData">
+
+  </div>
+  <script>
+    const renderData = () => {
+      let htmlResult = `
+      <h1 id="data">Hello World!</h1>
+      <input id="inputMessage"></input>
+      `
+      let htmlButton = `
+      <br />
+      <br />
+      <button onclick="alertData()">Alert Data</button>
+      <br />
+      <br />
+      <button onclick="gantiData()">Ganti Data</button>
+      `
+
+      document.getElementById("renderData").innerHTML = htmlResult
+      document.getElementById("renderData").innerHTML += htmlButton
+    }
+
+    renderData()
+
+    const alertData = (message) => {
+        message = document.getElementById("inputMessage").value
+      alert(message)
+    }
+    function gantiData (message) {
+        message = document.getElementById("inputMessage").value
+
+        document.getElementById("data").innerHTML = message
+    }
+  </script>
+</body>
+</html>
