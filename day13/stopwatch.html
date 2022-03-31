@@ -11,42 +11,60 @@
   crossorigin="anonymous">
 </head>
 <body>
+    <style>
+        body{
+            background-color: rgb(197, 197, 197);
+            padding-top: 200px;
+        }
+    </style>
+    <center>
     <h1>
-        <span id="minutes">00</span><span id="seconds"></span>
+        <span id="minutes">00</span>:<span id="seconds">00</span>
     </h1>
-    <button onclick="start()" class="btn btn-dark">Start</button>
-    <button onclick="stopKi()" class="btn btn-danger">Stop</button>
+    <button onclick="start()" class="btn btn-outline-dark">Start</button>
+    <button onclick="stopKi()" class="btn btn-outline-danger">Stop</button>
 
     <script>
-        let seconds = 0;
-        let minutes = 0;
 
-        seconds = 0;
-        minutes = 0;
-        stopwatch = setInterval(() => {
-        })
+        let starts
         
         const start = () => {
-           let add;
-           add = setInterval(() => {
-               seconds += 1
+            let seconds = 0
+            let minutes = 0
+            starts = setInterval(() => {
+            seconds = parseInt(seconds)
+            minutes = parseInt(minutes)
+
+            seconds += 1
+
+            if ( seconds < 10 ) {
+                seconds = `0${seconds}`
+            }
+            
+            document.getElementById("seconds").innerHTML = seconds
+                    
+            if ( seconds == 59) {
+                minutes += 1
+                seconds = 0
+
+                if ( minutes < 10 ) {
+                minutes = `0${minutes}`
+                }
+
+                if ( seconds < 10 ) {
+                seconds = `0${seconds}`
+                }
+
                 document.getElementById("seconds").innerHTML = seconds
-
-            if ( seconds = 60 ){
-                document.getElementById("minutes").innerHTML = "One Minute"
-            } else if ( seconds = 30) {
-                document.getElementById("seconds").innerHTML = "half"
+                document.getElementById("minutes").innerHTML = minutes
             }
-
-            }, 50)
+                }, 100)
         }
+        const stopKi = () => {
 
-            const stopKi = () => {
-                clearInterval(add)
-            }
-
-
-       
+            clearInterval(starts)
+        }
     </script>
+    </center>
 </body>
 </html>
