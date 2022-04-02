@@ -62,7 +62,7 @@
 //     }
 // }
 
-
+// ====================================================== //
 
 // 1. Remove vowels
 // Input: "javascript"
@@ -99,7 +99,7 @@ const rermoveVocal = (word) => {
 // Input: "steve"
 // Output: 71
 
-// ========================================//
+// =================Alphabet Value=======================//
 // 1. pecah string jadi array
 // 2. kita punya list abjad berurutan
 // 3. cehck value setiap huruf, cocokkan dengan posisi huruf tersebut di abjad
@@ -109,9 +109,7 @@ const alphabetValue = (input = "") => {
     const inputArr = input.split("");
     const abjad = "abcdefghijklmnopqrstuvwxyz".split("");
     let jumlahValue = 0;
-    // for (let i = 0; i < input.split("").length; i++){
-    //     jumlahValue += abjad.indexOf(input[i]) + 1;
-    // } 
+
     inputArr.forEach((character) => {
         const characterValue = abjad.indexOf(character) + 1;
 
@@ -120,9 +118,9 @@ const alphabetValue = (input = "") => {
 
     return jumlahValue
 } 
-console.log(alphabetValue("ananda"))
-console.log(alphabetValue("israfil"))
-console.log(alphabetValue("indah"))
+// console.log(alphabetValue("ananda"))
+// console.log(alphabetValue("israfil"))
+// console.log(alphabetValue("indah"))
 
 // ==========================================//
 
@@ -155,7 +153,7 @@ const alphabetOddValue = (input = "") => {
 
     return jumlahValue
 } 
-console.log(alphabetOddValue("rafli"))
+// console.log(alphabetOddValue("rafli"))
 
 // ==========================================//
 
@@ -199,15 +197,15 @@ console.log(alphabetOddValue("rafli"))
 //      b. kalau tidak ada, push ke array baru
 
 const uniqueIems = (arr1 = [], arr2 = []) => {
-    const resultArrUnique =[];
+    const resultArrUnique = [];
 
     arr1.forEach((val) => {
-        if (!arr1.includes(val)){
+        if (!arr2.includes(val)){
             resultArrUnique.push(val)
         }
     });
     arr2.forEach((val) => {
-        if (!arr2.includes(val)){
+        if (!arr1.includes(val)){
             resultArrUnique.push(val)
         }
     });
@@ -215,41 +213,9 @@ const uniqueIems = (arr1 = [], arr2 = []) => {
     return resultArrUnique
 }
 
-console.log(uniqueIems([1, 3, 5], [1, 2, 3, 4]))
-
-// const alphabetValue = (input = "") => {
-//     const inputArr = input.split("");
-//     const abjad = "abcdefghijklmnopqrstuvwxyz".split("");
-//     let jumlahValue = 0;
-//     // for (let i = 0; i < input.split("").length; i++){
-//     //     jumlahValue += abjad.indexOf(input[i]) + 1;
-//     // } 
-//     inputArr.forEach((character) => {
-//         const characterValue = abjad.indexOf(character) + 1;
-
-//         jumlahValue += characterValue
-//     })
-
-//     return jumlahValue
-// } 
-// console.log(alphabetValue("steve"))
+// console.log(uniqueIems([1, 3, 5], [1, 2, 3, 4]))
 
 // ===================unique=====================//
-
-// const unique = () => {
-//     for (let i = 0; i < arr1.length; i++){
-//         if(arr2.indexOf(arr1[i]) = -1){
-//            result = result.push(arr1[i])
-//         }
-//     }
-//     for (let j = 0; j < arr2.length; j++){
-//         if(arr1.indexOf(arr2[j]) = -1){
-//            result = result.push(arr2[j])
-//         }
-//     } 
-    
-//     return result
-// } 
 
 // console.log(result)
 // // Bonus Question
@@ -258,6 +224,25 @@ console.log(uniqueIems([1, 3, 5], [1, 2, 3, 4]))
 // // value/number yang sama. Tampilkan sebuah array baru yang berisi list value
 // // dari kedua array tersebut, tetapi sudah
 // // Input:
-// // arr1 = [1, 3, 7, 4]
-// // arr2 = [1, 5, 3, 7, 0]
+let arr1 = [1, 3, 7, 4]
+let arr2 = [1, 5, 3, 7, 0]
 // // Output: [1, 3, 4, 5, 7, 0]
+
+const removeDuplicates = (arr1=[], arr2=[]) => {
+    const resultArr = [ ...arr1 ]
+
+    arr2.forEach((val) => {
+        if(!resultArr.includes(val)) {
+           resultArr.push(val) 
+        }
+    })
+    
+    return resultArr
+
+    // cara keren
+    // return [...new Set ([...arr1, ...arr2])]
+
+}
+
+    console.log(removeDuplicates(arr1, arr2))
+
