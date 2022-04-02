@@ -224,8 +224,8 @@ const uniqueIems = (arr1 = [], arr2 = []) => {
 // // value/number yang sama. Tampilkan sebuah array baru yang berisi list value
 // // dari kedua array tersebut, tetapi sudah
 // // Input:
-let arr1 = [1, 3, 7, 4]
-let arr2 = [1, 5, 3, 7, 0]
+let arrayS = [1, 3, 7, 4]
+let arrayD = [1, 5, 3, 7, 0]
 // // Output: [1, 3, 4, 5, 7, 0]
 
 const removeDuplicates = (arr1=[], arr2=[]) => {
@@ -244,5 +244,5 @@ const removeDuplicates = (arr1=[], arr2=[]) => {
 
 }
 
-    console.log(removeDuplicates(arr1, arr2))
+    console.log(removeDuplicates(arrayS, arrayD))
 
