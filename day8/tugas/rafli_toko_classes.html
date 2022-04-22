@@ -7,7 +7,7 @@ class Asset {
     this.quantity = 0
   }
 
-  toCalculateTotalProce () {
+  toCalculateTotalPrice () {
     return this.price * this.quantity
   }
 
@@ -16,7 +16,7 @@ class Asset {
   }
 
   toCartString () {
-    return `${this.name} sebanyak ${this.quantity}, total US$ ${this.toCalculateTotalProce().toLocaleString()}`
+    return `${this.name} sebanyak ${this.quantity}, total US$ ${this.toCalculateTotalPrice().toLocaleString()}`
   }
 
 }
@@ -122,16 +122,20 @@ class TransactionDetail{
 
    let userEditBrand = prompt("Mau nu ubah jadi merk apa?");
    let userEditName = prompt(`namana iyya?`);
-   let userEditYear = prompt("tahunna iyya?");
+   let userEditYear = prompt("tahunna iyya?", "2022");
    let userEditPrice = parseInt(prompt("Beraps Hargana?"));
 
-   assets[userEditItemIndex] = {
-     ...assets[userEditItemIndex],
-     assetName = userEditName,
-     assetPrice = userEditPrice,
-     assetBrand = userEditBrand,
-     yearReleased = userEditYear,
-   }
+  //  assets[userEditItemIndex] = {
+  //     ...assets[userEditItemIndex],
+  //     name: userEditName,
+  //     price: userEditPrice,
+  //     brand: userEditBrand,
+  //     year: userEditYear
+  //   }
+  assets[userEditItemIndex].brand = userEditBrand
+  assets[userEditItemIndex].name = userEditName
+  assets[userEditItemIndex].year = userEditYear
+  assets[userEditItemIndex].price = userEditPrice
  };
 
  // User functions
@@ -153,7 +157,8 @@ const userAddToCart = () => {
      let product = assets[i];
 
      userCart += `${i + 1}. ${product.toCartString()} \n`;
-     totalPrice += product.toCalculateTotalProce();
+     
+     totalPrice += product.toCalculateTotalPrice();
    }
 
    userCart += `\n total semuana itu $ ${totalPrice.toLocaleString()}`;
@@ -186,9 +191,9 @@ const userAddToCart = () => {
           }
         }
   
-      //  for (let i = 0; i < assets.length; i++) {
-      //    assets[i].quantity = 0;
-      //  }
+       for (let i = 0; i < assets.length; i++) {
+         assets[i].quantity = 0;
+       }
   
        return;
      }
