@@ -36,7 +36,7 @@ class Car extends Asset {
 
 class TransactionDetail{
   constructor(){
-    this.transaction = []
+    this.transactions = []
   }
 
   addItem (transactionItem) {
@@ -46,14 +46,14 @@ class TransactionDetail{
     const today = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
 
     transactionItem.transactionDate = today
-    this.transaction.push(transactionItem);
+    this.transactions.push(transactionItem);
   }
 
   displayTransactionList () {
     let transactionList = ""
 
-    for (let i = 0; i < this.transaction.length; i++) {
-      transactionList += `${i + 1}. ${this.transaction[i].toCartString()} || Date : ${this.transaction[i].transactionDate}\n`
+    for (let i = 0; i < this.transactions.length; i++) {
+      transactionList += `${i + 1}. ${this.transactions[i].name} sebanyak ${this.transactions[i].quantity}, jadi total US$ ${(this.transactions[i].price * this.transactions[i].quantity).toLocaleString()} || Date : ${this.transactions[i].transactionDate}\n`
     }
 
     return transactionList
@@ -132,6 +132,7 @@ class TransactionDetail{
   //     brand: userEditBrand,
   //     year: userEditYear
   //   }
+  
   assets[userEditItemIndex].brand = userEditBrand
   assets[userEditItemIndex].name = userEditName
   assets[userEditItemIndex].year = userEditYear
@@ -186,19 +187,17 @@ const userAddToCart = () => {
       } while (true)
   
        for (let i = 0; i < assets.length; i++) {
-         if (assets[i].quantity > 0) {
-            transactionDetail.addItem({...assets[i]})
+         if (assets[i].quantity) {
+            transactionDetail.addItem({ ...assets[i] })
           }
         }
   
        for (let i = 0; i < assets.length; i++) {
          assets[i].quantity = 0;
        }
-  
+
        return;
      }
-
-  
 
    alert(userCart);
  };
@@ -230,20 +229,11 @@ const userAddToCart = () => {
           adminEditData();
         } else if (adminMenuInput == "5") {
 
-         if (transactionDetail.transaction.length) {
-          //  let reportData = "yang laku sebanyak = \n";
-          //  let totalTransactionAmount = 0;
+         if (transactionDetail.transactions.length) {
+           let reportData = "yang laku sebanyak = \n";
+           reportData += transactionDetail.displayTransactionList()
 
-          //  for (let i = 0; i < userTransactions.length; i++) {
-          //    let userTransactionItem = userTransactions[i];
-          //    reportData += `${i + 1}. ${userTransactionItem.name} x ${
-          //      userTransactionItem.quantity
-          //     } = US$ ${(
-          //       userTransactionItem.price * userTransactionItem.quantity
-          //     ).toLocaleString()}\n`;
-          //   }
-
-           alert(transactionDetail.displayTransactionList());
+           alert(reportData);
          } else {
            alert("nda ada pi!");
          }
